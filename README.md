@@ -72,6 +72,10 @@ A API estará disponível em `http://localhost:8080/pastelaria`.
 
 ---
 
+## Pastelaria API v3 (`projeto3`)
+
+(Em desenvolvimento)
+
 ## Autores
 
 - [@dkotsugai](https://www.github.com/dkotsugai)

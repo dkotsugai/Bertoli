@@ -16,10 +16,8 @@ public class Pastel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private Double preco;
-    private String descricao;
-    private Categoria categoria;
 
-    public Pastel(String nome, Double preco, String descricao, Categoria categoria) {
+
+    public Pastel(String nome) {
     }
 }

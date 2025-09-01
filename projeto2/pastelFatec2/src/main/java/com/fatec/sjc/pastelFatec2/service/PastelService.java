@@ -17,7 +17,7 @@ public class PastelService {
 
     public List<PastelDTO> obterTodosOsPastel() {
         return repository.findAll().stream()
-                .map(p -> new PastelDTO(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria()))
+                .map(p -> new PastelDTO(p.getId(), p.getNome()))
                 .toList();
     }
 
@@ -25,15 +25,15 @@ public class PastelService {
     public void cadastrarPastel(PastelDTO novoPastel) {
         Pastel pastel = new Pastel();
         pastel.setNome(novoPastel.nome());
-        pastel.setDescricao(novoPastel.descricao());
-        pastel.setPreco(novoPastel.preco());
-        pastel.setCategoria(novoPastel.categoria());
+//        pastel.setDescricao(novoPastel.descricao());
+//        pastel.setPreco(novoPastel.preco());
+//        pastel.setCategoria(novoPastel.categoria());
         repository.save(pastel);
     }
 
     public PastelDTO obterPorId(Long id) {
         return repository.findById(id)
-                .map(p -> new PastelDTO(p.getId(), p.getNome(), p.getDescricao(), p.getPreco(), p.getCategoria()))
+                .map(p -> new PastelDTO(p.getId(), p.getNome()))
                 .orElse(null);
     }
 
@@ -47,12 +47,12 @@ public class PastelService {
     public PastelDTO atualizarPastel(Long id, PastelDTO pastelAtualizado) {
         return repository.findById(id).map(pastel -> {
             pastel.setNome(pastelAtualizado.nome());
-            pastel.setDescricao(pastelAtualizado.descricao());
-            pastel.setPreco(pastelAtualizado.preco());
-            pastel.setCategoria(pastelAtualizado.categoria());
             repository.save(pastel);
-            return new PastelDTO(pastel.getId(), pastel.getNome(), pastel.getDescricao(), pastel.getPreco(), pastel.getCategoria());
+            return new PastelDTO(pastel.getId(), pastel.getNome());
         }).orElse(null);
     }
 
+    public PastelDTO obterPastelPorId(Long id) {
+        return obterPorId(id);
+    }
 }

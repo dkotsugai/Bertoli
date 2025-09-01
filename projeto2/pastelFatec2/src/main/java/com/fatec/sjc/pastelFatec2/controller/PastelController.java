@@ -16,24 +16,32 @@ public class PastelController {
     @Autowired
     private PastelService service;
 
-    @GetMapping
-    public String ola() {
-        return "Olá, seja bem-vindo à Pastelaria da FATEC!";
-    }
+//    @GetMapping
+//    public String ola() {
+//        return "Olá, seja bem-vindo à Pastelaria da FATEC!";
+//    }
 
-    @GetMapping("/pasteis")
+    @GetMapping
     public List<PastelDTO> obterTodosOsPastel() {
         return service.obterTodosOsPastel();
     }
 
-    @PostMapping(path = "/new/pastel",
-    produces ="application/json",
-    consumes ="application/json")
-    public void cadastrarPastel(@RequestBody PastelDTO novoPastel) {
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PastelDTO> obterPastelPorId(@PathVariable Long id) {
+        PastelDTO pastel = service.obterPastelPorId(id);
+        if (pastel != null) {
+            return ResponseEntity.ok(pastel);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping
+    public void cadastrarPastel(@RequestBody PastelDTO novoPastel ) {
         service.cadastrarPastel(novoPastel);
     }
 
-    @PutMapping(path = "/pastel/update/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<PastelDTO> atualizarPastel(@PathVariable Long id, @RequestBody PastelDTO pastelAtualizado) {
         PastelDTO atualizado = service.atualizarPastel(id, pastelAtualizado);
         if (atualizado != null) {
@@ -43,7 +51,7 @@ public class PastelController {
         }
     }
 
-    @DeleteMapping(path = "/delete/pastel/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deletarPastel(@PathVariable Long id) {
         boolean deletado = service.deletarPastel(id);
         if (deletado) {
